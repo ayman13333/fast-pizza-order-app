@@ -3,18 +3,20 @@ import Rigth from "../icons/Rigth";
 
 export default function Hero() {
   return (
-    <section className="grid grid-cols-2">
-        <div>
-        <h1 className="text-4xl font-semibold">Everything is better with pizza</h1>
-       <p className="my-4 text-gray-500">Pizza is the missing piece that makes everyday  better</p>
+    <section className="hero">
+        <div className="py-12">
+        <h1 className="text-4xl font-semibold leading-12">Everything <br/> is better <br /> with a &nbsp; <span className="text-primary" >pizza</span> </h1>
+       <p className="my-6 text-gray-500">Pizza is the missing piece that makes everyday  better</p>
 
-       <div className="flex gap-4">
-        <button className="bg-primary text-white px-4 py-2 rounded-full flex gap-4">
+       <div className="flex gap-4 text-sm">
+        <button 
+        className="bg-primary uppercase text-white px-4 py-2 rounded-full flex gap-4 items-center">
             Order now <Rigth />
         </button>
-        <button className="flex gap-2 py-2 text-gray-500">Learn more <Rigth /></button>
+        <button className="flex gap-2 py-2 text-gray-400">Learn more <Rigth /></button>
         
        </div>
+
         </div>
     
         <div className="relative">
