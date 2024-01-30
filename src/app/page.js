@@ -22,9 +22,13 @@ export default function Home() {
       <SectionHeaders title1={'Contact Us'} title2={'Dont hesitate'} />
       <div className="mt-8">
 
-      <a className="text-4xl" href="tel:12345">12345</a>
+      <a className="text-4xl underline text-gray-500" href="tel:12345">12345</a>
       </div>
     </section>
+
+    <footer className="border-t p-8 text-center text-gray-500 mt-16">
+      &copy; 2024 All rigths reserved
+    </footer>
     </>
   );
 }
