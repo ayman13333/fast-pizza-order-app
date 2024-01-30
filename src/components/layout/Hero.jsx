@@ -3,7 +3,7 @@ import Rigth from "../icons/Rigth";
 
 export default function Hero() {
   return (
-    <section className="hero">
+    <section className="hero mt-4">
         <div className="py-12">
         <h1 className="text-4xl font-semibold leading-12">Everything <br/> is better <br /> with a &nbsp; <span className="text-primary" >pizza</span> </h1>
        <p className="my-6 text-gray-500">Pizza is the missing piece that makes everyday  better</p>
