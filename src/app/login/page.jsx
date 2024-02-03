@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import {signIn} from "next-auth/react";
 import { useState } from "react";
 
 export default function Login() {
@@ -11,18 +12,7 @@ export default function Login() {
   async function handleFormSubmit(e){
     e.preventDefault();
     setloggingIn(true);
-   const {ok}= await fetch('/api/login',{
-        body:JSON.stringify({email,password}),
-        headers:{'Content-Type':'application/json'},
-        method:'POST'
-    });
-
-    if(ok){
-
-    }
-    else{
-
-    }
+    await signIn('credentials',{email,password,callbackUrl:'/'});
     setloggingIn(true);
   }
   return (
@@ -30,11 +20,13 @@ export default function Login() {
       <h1 className="text-center text-primary text-4xl">Login</h1>
       <form className="block mx-auto max-w-sm" onSubmit={handleFormSubmit}>
       <input type="email" placeholder="email"
+          name="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           disabled={loggingIn}
         />
         <input type="password" placeholder="password"
+          name="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           disabled={loggingIn}
@@ -44,7 +36,11 @@ export default function Login() {
         <div className="my-4 text-center text-gray-500">
           or login with provider
         </div>
-        <button className="flex gap-4 justify-center">
+        <button 
+        type="button"
+        className="flex gap-4 justify-center"
+        onClick={()=>signIn('google')}
+        >
           <Image src={'/google.webp'} alt="" width={32} height={32} />
           Login with google
         </button>
