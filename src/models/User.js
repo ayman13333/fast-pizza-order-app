@@ -8,6 +8,10 @@ const UserSchema=new Schema({
         required:[true,'email is required and must be unique'],
         unique:true
     },
+    name:{
+        type:String,
+        default:''
+    },
     password:{
         type:String,
         required:true,
@@ -23,6 +27,7 @@ const UserSchema=new Schema({
 });
 
 UserSchema.pre('save',async function(next){
+    console.log('xxxxxxxxxxxxxxxxx');
     this.password=await bcrypt.hash(this.password,12);
     next();
 });

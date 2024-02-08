@@ -8,14 +8,14 @@ import clientPromise from "@/libs/mongoConnect";
 
 // clientPromise
 //// adapter:MongoDBAdapter(clientPromise),
-const handler=NextAuth({
+export const authOptions={
   secret:process.env.SECRET,
   
     providers:[
-      GoogleProvider({
-        clientId:process.env.GOOGLE_CLIENT_ID,
-        clientSecret:process.env.GOOGLE_CLIENT_SECRET
-      }),
+      // GoogleProvider({
+      //   clientId:process.env.GOOGLE_CLIENT_ID,
+      //   clientSecret:process.env.GOOGLE_CLIENT_SECRET
+      // }),
         CredentialsProvider({
             name: "Credentials",
             id:"credentials",
@@ -54,6 +54,8 @@ const handler=NextAuth({
             }
           })
     ]
-});
+};
+
+const handler=NextAuth(authOptions);
 
 export {handler as GET , handler as POST}
