@@ -12,7 +12,7 @@ export async function PUT(req) {
 
     //const user=await User.findOne({email});
 
-    //console.log(session);
+    
 
     if('name' in data){
         //update user name
@@ -22,10 +22,12 @@ export async function PUT(req) {
             name:data.name
         },{runValidators:false},{new:true});
 
-        session.user.name = data.name;
+        //session.user.name = data.name;
         // Save the session changes (assuming it's required in your setup)
-        await session.save();
+       // await session.save();
     }
+
+    console.log(session);
 
     return Response.json(true);
 }

@@ -12,6 +12,10 @@ const UserSchema=new Schema({
         type:String,
         default:''
     },
+    image:{
+        type:String,
+        default:'baby.png'
+    },
     password:{
         type:String,
         required:true,
