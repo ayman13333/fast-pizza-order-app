@@ -14,20 +14,32 @@ export async function PUT(req) {
 
     
 
-    if('name' in data){
-        //update user name
-        // user.name=data.name;
-        // await user.save();
-      await  User.findOneAndUpdate({email},{
-            name:data.name
-        },{runValidators:false},{new:true});
+    // if('name' in data){
+    //     //update user name
+    //     // user.name=data.name;
+    //     // await user.save();
+    //   await  User.findOneAndUpdate({email},{
+    //         name:data.name
+    //     },{runValidators:false},{new:true});
 
-        //session.user.name = data.name;
-        // Save the session changes (assuming it's required in your setup)
-       // await session.save();
-    }
+    //     //session.user.name = data.name;
+    //     // Save the session changes (assuming it's required in your setup)
+    //    // await session.save();
+    // }
+
+    await User.updateOne({email},data);
 
     console.log(session);
 
     return Response.json(true);
+}
+
+export async function GET() {
+    mongoose.connect(process.env.MONGO_URL);
+    const session=await getServerSession(authOptions);
+    const email=session.user.email;
+    if(!email) return Response.json({});
+    return Response.json(
+        await User.findOne({email})
+    );
 }

@@ -4,16 +4,37 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
+import SuccessBox from "../../components/layout/SuccessBox";
+import Link from "next/link";
+import Tabs from "../../components/layout/Tabs";
 
 export default function ProfilePage() {
     const session=useSession();
     const[userName,setUserName]=useState('');
     const[saved,setSaved]=useState(false);
+    const[phone,setPhone]=useState("");
+    const[street,setStreet]=useState("");
+    const[postal,setPostal]=useState("");
+    const[city,setCity]=useState("");
+    const[country,setCountry]=useState("");
+    const[isAdmin,setIsAdmin]=useState(false);
+
     const{status}=session;
 
     useEffect(()=>{
       if(status==='authenticated'){
-        setUserName(session?.data?.user?.name);
+        
+
+        fetch('/api/profile').then(response=>response.json())
+        .then(data=>{
+          setUserName(data?.name);
+          setPhone(data.phone);
+          setStreet(data.streeAddress);
+          setPostal(data.postalCode);
+          setCity(data.city);
+          setCountry(data.country);
+          setIsAdmin(data.admin);
+        })
       }
     },[session,status]);
 
@@ -28,7 +49,14 @@ export default function ProfilePage() {
       const response=  await fetch('/api/profile',{
             method:'PUT',
             headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({name:userName})
+            body:JSON.stringify({
+              name:userName,
+              streeAddress:street,
+              phone,
+              postalCode:postal,
+              city,
+              country
+            })
         });
 
         if(response.ok) setSaved(true);
@@ -49,12 +77,11 @@ export default function ProfilePage() {
     }
   return (
     <section className="mt-8">
-      <h1 className="text-center text-primary text-4xl mb-4">Profile</h1>
+     <Tabs isAdmin={isAdmin} />
+      {/* <h1 className="text-center text-primary text-4xl mb-4">Profile</h1> */}
       {
         saved&&(
-          <div className="max-w-md mx-auto">
-          <h2 className="text-center bg-green-200 p-4 rounded-lg my-2 border border-green-300">Profile saved!</h2>
-          </div>
+          <SuccessBox>Profile saved!</SuccessBox>
         )
       }
      
@@ -63,7 +90,7 @@ export default function ProfilePage() {
         <div className="flex gap-4">
         <div>
             <div className="bg-gray-300 p-2 rounded-lg">
-            <Image className="rounded-lg w-full h-full mb-1" src={userImage} width={250} height={250} alt="avatar" />
+            <Image className="rounded-lg w-full h-full mb-1" src={""} width={250} height={250} alt="avatar" />
             <label>
             <input type="file" className="hidden" onChange={handleFileChange} />
             <span className="block border rounded-lg p-2 text-center cursor-pointer">Edit</span>
@@ -73,11 +100,21 @@ export default function ProfilePage() {
             </div>   
         </div>
         <form className="grow" onSubmit={handleProfileInfoUpdate}>
+          <label>first and last name</label>
         <input type="text" 
         value={userName}
         onChange={e=>setUserName(e.target.value)}
         placeholder="first and last name" />
+        <label>email </label>
         <input type="email" disabled={true} value={session?.data?.user?.email} />
+        <input type="tel" value={phone} onChange={(e)=>setPhone(e.target.value)} placeholder="phone" />
+        <input type="text" value={street} onChange={(e)=>setStreet(e.target.value)} placeholder="street address" />
+        <div className="flex gap-2">
+        <input type="text" value={postal} onChange={(e)=>setPostal(e.target.value)} placeholder="postal code" />
+        <input type="text" value={city} onChange={(e)=>setCity(e.target.value)} placeholder="city" />
+        </div>
+       
+        <input type="text" value={country} setCountry={(e)=>setCountry(e.target.value)} placeholder="country" />
         <button type="submit">Save</button>
         </form>
         </div>

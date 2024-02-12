@@ -25,7 +25,13 @@ const UserSchema=new Schema({
                 return false;
             }
         }
-    }
+    },
+    phone:{type:String},
+    streetAddress:{type:String},
+    postalCode:{type:String},
+    city:{type:String},
+    country:{type:String},
+    admin:{type:Boolean,default:false}
 },{
     timestamps:true
 });
