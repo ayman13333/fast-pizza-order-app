@@ -15,15 +15,27 @@ export default function Page() {
 
   async function handleAddCategory(e) {
     e.preventDefault();
+    let data={name:newCategoryName};
+    if(editedCategory) data._id=editedCategory._id;
+
    let response= await fetch('/api/categories',{
-      method:'POST',
+      method: editedCategory ? 'PUT' :'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name:newCategoryName})
+      body:JSON.stringify(data)
     });
     response=await response.json();
     //console.log(response);
+    if(editedCategory)
+    {
+      if(response._id) setCategories(prev=>prev.map(el=>el._id==response._id? response : el));
+    }
+    else
+  {
     if(response._id) setCategories(prev=>[...prev,response]);
+  }
+    
     setNewCategoryName('');
+    setEditedCategory('');
   }
   return (
     <section className="mt-8 max-w-lg mx-auto">

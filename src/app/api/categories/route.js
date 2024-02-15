@@ -15,3 +15,12 @@ export async function GET(){
         await Category.find()
     );
 }
+
+export async function PUT(req){
+    const{_id,name}=await req.json();
+    let category=await Category.findById(_id);
+    category.name=name;
+    category=await category.save();
+
+    return Response.json(category);
+}
