@@ -9,7 +9,10 @@ export default function Page() {
 
   async function handleFormSubmit(e){
     e.preventDefault();
-
+    const response=await fetch('/api/menuItems',{
+      method:'POST',
+      body:JSON.stringify({})
+    });
   }
   return (
     <section className="mt-8">
