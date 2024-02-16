@@ -3,12 +3,30 @@ const { MenuItem } = require("../../../models/MenuItem");
 mongoose.connect(process.env.MONGO_URL);
 
 export async function GET(req){
-    const menuItems=await MenuItem.find();
+    // console.log(req.url.includes('id'));
+    // console.log(req.url.split('='))
 
-    return Response.json(menuItems);
+     if(req.url.includes('id')){
+        //req.url.split('=') 
+        const menu=await MenuItem.findById(req.url.split('=')[1]);
+        //console.log(menu);
+        return Response.json(menu);
+     } 
+     else{
+        const menuItems=await MenuItem.find();
+
+        return Response.json(menuItems);
+     }
+   
 }
 
-//export async function
+export async function GETONEHandler(id){
+    // const { id } = req.query;
+    const menu=await MenuItem.findById(id);
+    console.log(menu);
+    return Response.json(menu);
+    
+}
 
 export async function POST(req) {
     const data=await req.json();
