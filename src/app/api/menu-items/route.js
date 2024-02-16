@@ -7,10 +7,11 @@ export async function GET(req){
     // console.log(req.url.split('='))
 
      if(req.url.includes('id')){
-        //req.url.split('=') 
+        req.url.split('=') 
         const menu=await MenuItem.findById(req.url.split('=')[1]);
         //console.log(menu);
         return Response.json(menu);
+        //GETONEHandler(req);
      } 
      else{
         const menuItems=await MenuItem.find();
@@ -20,9 +21,9 @@ export async function GET(req){
    
 }
 
-export async function GETONEHandler(id){
+export async function GETONEHandler(req){
     // const { id } = req.query;
-    const menu=await MenuItem.findById(id);
+    const menu=await MenuItem.findById(req.url.split('=')[1]);
     console.log(menu);
     return Response.json(menu);
     
