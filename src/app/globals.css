@@ -17,7 +17,7 @@ input[type="email"]:disabled,input[type="password"]:disabled,input[type="text"]:
     @apply bg-gray-300 cursor-not-allowed;
 }
 
-button{
+button,.button{
     @apply block w-full text-gray-700 font-semibold;
     @apply border border-gray-500 rounded-xl px-6 py-2;
 }

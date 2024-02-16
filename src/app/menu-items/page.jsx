@@ -1,38 +1,34 @@
 'use client';
 import Tabs from "@/components/layout/Tabs";
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Page() {
-  const[name,setName]=useState('');
-  const[desc,setDesc]=useState('');
-  const[price,setPrice]=useState(0);
+  const[menuItems,setMenuItems]=useState([]);
+  useEffect(()=>{
+    fetch('/api/menu-items')
+    .then(res=>{
+      res.json().then(menuItems=>setMenuItems(menuItems))
+    })
+    ;
+  },[]);
 
-  async function handleFormSubmit(e){
-    e.preventDefault();
-    const response=await fetch('/api/menuItems',{
-      method:'POST',
-      body:JSON.stringify({})
-    });
-  }
   return (
-    <section className="mt-8">
+    <section className="mt-8 mx-auto max-w-md">
       <Tabs isAdmin={true} />
-      <form onSubmit={handleFormSubmit} className="mt-8">
-      <div className="flex gap-2 mx-auto max-w-md items-end">
-      <div className="grow">
-        <label>Menu item name</label>
-        <input value={name} onChange={(e)=>setName(e.target.value)} type="text" />
-
-        <label>Description</label>
-        <input value={desc} onChange={(e)=>setDesc(e.target.value)} type="text" />
-
-        <label>Base price</label>
-        <input value={price} onChange={(e)=>setPrice(e.target.value)} type="number" />
-
-        <button type="submit">Create</button>
+      <div className="mt-8">
+      <Link className="button text-center my-2" href={'/menu-items/new'}>new</Link>
       </div>
-      </div>
-      </form>
+      <div>
+        <h2 className="text-sm text-gray-500 my-4">Edit item:</h2>
+        {
+          menuItems.length>0 &&menuItems.map(item=>
+            <Link href={`/menu-items/edit/${item._id}`} className="my-2 button" key={item._id}>
+              {item?.name}
+            </Link>
+            )
+        }
+      </div>   
       </section>
   )
 }
