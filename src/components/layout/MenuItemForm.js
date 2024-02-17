@@ -11,7 +11,7 @@ export default function MenuItemForm({onSubmit,menuItem}) {
    
   return (
     <form 
-    onSubmit={(e)=>onSubmit(e,name,desc,price)} className="mt-8">
+    onSubmit={(e)=>onSubmit(e,name,desc,price,sizes,extras)} className="mt-8">
     <div className="flex gap-2 mx-auto max-w-md items-end">
     <div className="grow">
       <label>Menu item name</label>

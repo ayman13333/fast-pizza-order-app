@@ -24,9 +24,9 @@ export default function Page() {
       get();
     },[]);
   
-    async function handleFormSubmit(e,name,desc,price){
+    async function handleFormSubmit(e,name,desc,price,sizes,extras){
       e.preventDefault();
-      let data={_id:id,name,description:desc,basePrice:price};
+      let data={_id:id,name,description:desc,basePrice:price,sizes,extras};
       const response=await fetch('/api/menu-items',{
         method:'PUT',
         body:JSON.stringify(data),
