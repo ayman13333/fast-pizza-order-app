@@ -47,6 +47,12 @@ export default function Page() {
       <section className="mt-8">
         <Tabs isAdmin={true} />
       {res&& <MenuItemForm menuItem={res} onSubmit={handleFormSubmit} />} 
+      <div className="max-w-md mx-auto mt-4 ">
+        <div className="max-w-md ml-auto ">
+        <button>Delete this MenuItem</button>
+        </div>
+        
+      </div>
         </section>
     )
 }

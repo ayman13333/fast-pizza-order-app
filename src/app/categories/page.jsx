@@ -57,10 +57,11 @@ export default function Page() {
       <label>New category name</label>
       <input value={newCategoryName} onChange={(e)=>setNewCategoryName(e.target.value)} type="text" />
       </div>
-      <div className="pb-2">
+      <div className="pb-2 flex gap-2">
       <button type="submit">
        {editedCategory ? 'Update' : 'Create'} 
         </button>
+      <button type="button" onClick={()=>{setEditedCategory(null);setNewCategoryName('')}}>Cancel</button>
       </div>
       </div>
       </form>
