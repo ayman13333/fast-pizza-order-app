@@ -37,11 +37,18 @@ export default function Page() {
          setRedirectTo(true);
       }
     }
-  
+    
+    async function handleDeleteMenuItem(){
+      const response=await fetch(`/api/menu-items?_id=${id}`,{
+        method:'DELETE'
+      });
+
+      if(response.ok) setRedirectTo(true);
+    }
+
     if(redirectTo) redirect('/menu-items');
 
-    console.log('res');
-    console.log(res);
+   
   
     return (
       <section className="mt-8">
@@ -49,7 +56,7 @@ export default function Page() {
       {res&& <MenuItemForm menuItem={res} onSubmit={handleFormSubmit} />} 
       <div className="max-w-md mx-auto mt-4 ">
         <div className="max-w-md ml-auto ">
-        <button>Delete this MenuItem</button>
+        <button onClick={handleDeleteMenuItem}>Delete this MenuItem</button>
         </div>
         
       </div>
