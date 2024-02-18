@@ -37,6 +37,17 @@ export default function Page() {
     setNewCategoryName('');
     setEditedCategory('');
   }
+
+  async function handleDeleteCategory(_id){
+   let response= await fetch(`/api/categories?_id=${_id}`,{
+      method:'DELETE'
+    });
+
+    if(response.ok){
+      //response=await response.json();
+      setCategories(cat=>cat.filter(c=>c._id!==_id));
+    }
+  }
   return (
     <section className="mt-8 max-w-lg mx-auto">
       <Tabs isAdmin={true} />
@@ -53,18 +64,29 @@ export default function Page() {
       </div>
       </div>
       </form>
-      <h2 className="mt-8 text-sm text-gray-500">Edit Category:</h2>
+      <h2 className="mt-8 text-sm text-gray-500">Categories:</h2>
       {categories?.length>0 && categories.map(c=>(
-        <button 
-        className="bg-gray-200 rounded-lg p-2 px-4 flex gap-1 cursor-pointer my-1"
+        <div 
+        className="bg-gray-100 rounded-lg p-2 px-4 flex gap-1 my-1"
         key={c._id}
+        >
+          <span 
+          className="grow hover:underline cursor-pointer"
+          >  {c.name} 
+        </span>
+        <div className="flex gap-1">
+        <button type="button"
         onClick={()=>{
           setEditedCategory(c);
           setNewCategoryName(c.name);
         }}
-        >
-        {c.name}
-        </button>
+        >Edit</button>
+        <button type="button"
+        onClick={()=>handleDeleteCategory(c._id)}
+        >Delete</button>
+        </div>
+       
+        </div>
       ))}
     </section>
   )

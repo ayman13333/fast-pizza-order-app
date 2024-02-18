@@ -6,8 +6,8 @@ export default function MenuItemForm({onSubmit,menuItem}) {
     const[name,setName]=useState(menuItem?.name || '');
     const[desc,setDesc]=useState(menuItem?.description || '');
     const[price,setPrice]=useState(menuItem?.basePrice || 0);
-    const[sizes,setSizes]=useState([]);
-    const[extras,setExtras]=useState([]);
+    const[sizes,setSizes]=useState(menuItem?.sizes||[]);
+    const[extras,setExtras]=useState(menuItem?.extras||[]);
    
   return (
     <form 

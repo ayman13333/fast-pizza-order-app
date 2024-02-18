@@ -18,7 +18,7 @@ export default function MenuItemSizesProps({props,setProps,name}) {
 
   return (
     <div className="bg-gray-200 p-2 rounded-lg my-3">
-    <label>{name}:</label>
+    <label>{name}: ({props?.length})</label>
     {props.length>0 && props.map((size,index)=>
     <div className="flex gap-2"
     key={index} >
