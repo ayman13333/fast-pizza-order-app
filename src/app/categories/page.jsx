@@ -1,6 +1,7 @@
 "use client";
 import Tabs from "@/components/layout/Tabs";
 import { useEffect, useState } from "react";
+import DeleteButton from "../../components/Menu/DeleteButton";
 
 export default function Page() {
   const[categories,setCategories]=useState([]);
@@ -82,9 +83,10 @@ export default function Page() {
           setNewCategoryName(c.name);
         }}
         >Edit</button>
-        <button type="button"
+        <DeleteButton label="Delete" onConfirm={()=>handleDeleteCategory(c._id)} />
+        {/* <button type="button"
         onClick={()=>handleDeleteCategory(c._id)}
-        >Delete</button>
+        >Delete</button> */}
         </div>
        
         </div>

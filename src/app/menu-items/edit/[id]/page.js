@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { redirect, useParams  } from 'next/navigation';
 import Tabs from "@/components/layout/Tabs";
 import MenuItemForm from "@/components/layout/MenuItemForm";
+import DeleteButton from "../../../../components/Menu/DeleteButton";
 
 
 export default function Page() {
@@ -56,7 +57,8 @@ export default function Page() {
       {res&& <MenuItemForm menuItem={res} onSubmit={handleFormSubmit} />} 
       <div className="max-w-md mx-auto mt-4 ">
         <div className="max-w-md ml-auto ">
-        <button onClick={handleDeleteMenuItem}>Delete this MenuItem</button>
+          <DeleteButton label='Delete this MenuItem' onConfirm={handleDeleteMenuItem} />
+       
         </div>
         
       </div>
