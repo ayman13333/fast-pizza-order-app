@@ -11,9 +11,9 @@ export default function Page() {
   // const[price,setPrice]=useState(0);
   const[redirectTo,setRedirectTo]=useState(false);
 
-  async function handleFormSubmit(e,name,desc,price,sizes,extras){
+  async function handleFormSubmit(e,name,desc,price,sizes,extras,category){
     e.preventDefault();
-    let data={name:name,description:desc,basePrice:price,sizes,extras};
+    let data={name:name,description:desc,basePrice:price,sizes,extras,category};
     const response=await fetch('/api/menu-items',{
       method:'POST',
       body:JSON.stringify(data),

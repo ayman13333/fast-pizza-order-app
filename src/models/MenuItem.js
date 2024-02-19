@@ -1,4 +1,4 @@
-const { Schema, models, model } = require("mongoose");
+const { Schema, models, model, default: mongoose } = require("mongoose");
 
 const ExtraPriceSchema=new Schema({
     name:String,
@@ -11,7 +11,8 @@ name:{type:String},
 description:{type:String},
 basePrice:{type:Number},
 sizes:{type:[ExtraPriceSchema]},
-extras:{type:[ExtraPriceSchema]}
+extras:{type:[ExtraPriceSchema]},
+category:{type:mongoose.Types.ObjectId}
 },{timestamps:true});
 
 export const MenuItem=models?.MenuItem || model('MenuItem',MenuItemSchema);

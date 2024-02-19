@@ -46,6 +46,6 @@ UserSchema.methods.correctPassword=async function(candidatePassword,userPassword
     return await bcrypt.compare(candidatePassword,userPassword);
 }
 
-const User=models?.User || model('User',UserSchema);
+export const User=models?.User || model('User',UserSchema);
 
-export default User;
+//export const User;

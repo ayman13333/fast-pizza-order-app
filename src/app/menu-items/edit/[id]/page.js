@@ -14,7 +14,6 @@ export default function Page() {
   const [res,setRes]=useState();
 
     useEffect(()=>{
-
       const get= async()=>{
         let response=await fetch(`/api/menu-items?id=${id}`);
         response=await response.json();
@@ -25,9 +24,9 @@ export default function Page() {
       get();
     },[]);
   
-    async function handleFormSubmit(e,name,desc,price,sizes,extras){
+    async function handleFormSubmit(e,name,desc,price,sizes,extras,category){
       e.preventDefault();
-      let data={_id:id,name,description:desc,basePrice:price,sizes,extras};
+      let data={_id:id,name,description:desc,basePrice:price,sizes,extras,category};
       const response=await fetch('/api/menu-items',{
         method:'PUT',
         body:JSON.stringify(data),
