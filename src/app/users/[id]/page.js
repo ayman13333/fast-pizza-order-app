@@ -30,7 +30,8 @@ export default function Page() {
        phone: userObj.phone,
         postalCode:userObj.postal,
         city:userObj.city,
-        country:userObj.country
+        country:userObj.country,
+        email:user.email
       })
   });
   }
