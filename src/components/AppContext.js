@@ -11,7 +11,7 @@ export default function AppContext({children}) {
 
   const ls=typeof window !=='undefined' ? window.localStorage :null;
 
-  function saveCartToLocalStorage(){
+  function saveCartToLocalStorage(cartProducts){
     if(ls){
       ls.setItem('cart',JSON.stringify(cartProducts));
     }
@@ -21,8 +21,7 @@ export default function AppContext({children}) {
     setCartProducts(prevProducts=>{
       const cartProduct={...product,sizes,extras};
       const newProducts=[...prevProducts,cartProduct];
-      console.log("newProducts");
-      console.log(newProducts);
+     saveCartToLocalStorage(newProducts);
       return newProducts;
     });
   }
