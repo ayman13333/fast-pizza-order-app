@@ -1,12 +1,16 @@
 "use client";
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { CartContext } from '../AppContext';
+import { useContext } from 'react';
 
 export default function Header() {
     const session = useSession();
     console.log(session);
     const status = session.status;
-    const userData=session?.data?.user;
+    const userData = session?.data?.user;
+
+    const { cartProducts } = useContext(CartContext);
 
     return (
 
@@ -25,12 +29,12 @@ export default function Header() {
                 {
                     status === 'authenticated' && (
                         <>
-                        <Link href={'/profile'}>{userData.email}</Link>
-                         <button 
-                        onClick={()=>signOut()} 
-                        className="bg-primary text-white rounded-full px-8 py-2">Logout</button>
+                            <Link href={'/profile'}>{userData.email}</Link>
+                            <button
+                                onClick={() => signOut()}
+                                className="bg-primary text-white rounded-full px-8 py-2">Logout</button>
                         </>
-                       
+
                     )
                 }
                 {
@@ -42,6 +46,8 @@ export default function Header() {
                     )
                 }
 
+
+                <Link href='/cart'>Cart({cartProducts.length})</Link>
             </nav>
         </header>
 

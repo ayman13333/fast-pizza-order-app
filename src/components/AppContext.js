@@ -11,9 +11,10 @@ export default function AppContext({children}) {
 
   function addToCart(product,sizes=null,extras=[]){
     setCartProducts(prevProducts=>{
-      const cartProduct={...product,size,extras};
+      const cartProduct={...product,sizes,extras};
       const newProducts=[...prevProducts,cartProduct];
-
+      console.log("newProducts");
+      console.log(newProducts);
       return newProducts;
     });
   }
