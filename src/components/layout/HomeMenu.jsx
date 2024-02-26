@@ -1,8 +1,20 @@
+'use client';
 import Image from "next/image";
 import MenuItem from "../Menu/MenuItem";
 import SectionHeaders from "./SectionHeaders";
+import { useEffect, useState } from "react";
 
 export default function HomeMenu() {
+  const[homePizzas,setHomePizzas]=useState([]);
+
+  useEffect(()=>{
+    const get=async()=>{
+      let response=await fetch('/api/menu-items');
+      response=await response.json();
+      setHomePizzas(response.slice(-3));
+    }
+    get();
+  },[]);
   return (
     <section>
       <div className="absolute  left-0 right-0 justify-start overflow-hidden"> 
@@ -19,12 +31,9 @@ export default function HomeMenu() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
+      {
+        homePizzas?.length>0&& homePizzas.map(item=> <MenuItem key={item} {...item} />)
+      }
       </div>
     </section>
   )
