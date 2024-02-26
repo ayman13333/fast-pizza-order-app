@@ -1,21 +1,24 @@
 "use client";
 
+import { CartContext } from "@/components/AppContext";
 import MenuItem from "@/components/Menu/MenuItem";
 import SectionHeaders from "@/components/layout/SectionHeaders";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Page() {
   const [categories, setCategories] = useState([]);
   const [menus, setMenus] = useState([]);
+
+  const{menuItems}=useContext(CartContext);
 
   useEffect(() => {
     const get = async () => {
       let response = await fetch("/api/categories");
       response = await response.json();
       setCategories(response);
-      let menusResponse = await fetch("/api/menu-items");
-      menusResponse = await menusResponse.json();
-      setMenus(menusResponse);
+    //   let menusResponse = await fetch("/api/menu-items");
+    //   menusResponse = await menusResponse.json();
+    //   setMenus(menusResponse);
     };
     get();
   }, []);
@@ -27,7 +30,8 @@ export default function Page() {
             <div className="text-center">
               <SectionHeaders title1={c.name} />
               <div className="grid grid-cols-3 gap-2">
-              {menus
+
+              {menuItems
                 .filter((item) => item.category == c._id)
                 .map((item) => (
                     <div key={item}>

@@ -2,18 +2,23 @@
 import Image from "next/image";
 import MenuItem from "../Menu/MenuItem";
 import SectionHeaders from "./SectionHeaders";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../AppContext";
 
 export default function HomeMenu() {
   const[homePizzas,setHomePizzas]=useState([]);
 
+  const{menuItems,getMenuItems}=useContext(CartContext);
+
   useEffect(()=>{
-    const get=async()=>{
-      let response=await fetch('/api/menu-items');
-      response=await response.json();
-      setHomePizzas(response.slice(-3));
-    }
-    get();
+    // const get=async()=>{
+    //   let response=await fetch('/api/menu-items');
+    //   response=await response.json();
+    //   setHomePizzas(response.slice(-3));
+    // }
+    // get();
+    getMenuItems();
+
   },[]);
   return (
     <section>
@@ -32,7 +37,7 @@ export default function HomeMenu() {
 
       <div className="grid grid-cols-3 gap-4">
       {
-        homePizzas?.length>0&& homePizzas.map(item=> <MenuItem key={item} {...item} />)
+        menuItems?.length>0&& menuItems.map(item=> <MenuItem key={item} {...item} />)
       }
       </div>
     </section>
