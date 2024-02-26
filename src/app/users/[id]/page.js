@@ -2,11 +2,14 @@
 
 import Tabs from "@/components/layout/Tabs";
 import UserForm from "@/components/layout/UserForm";
-import { useParams } from "next/navigation";
+import { redirect, useParams,useRouter } from "next/navigation";
+//import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Page() {
   const {id} = useParams ();
+  const router = useRouter();
+
   const[user,setUser]=useState(null);
   useEffect(()=>{
     async function get() {
@@ -35,6 +38,8 @@ export default function Page() {
         admin:userObj.admin
       })
   });
+
+  if(response.ok)  router.push('/users');
   }
 
   return (
