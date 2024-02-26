@@ -6,22 +6,15 @@ import SectionHeaders from "@/components/layout/SectionHeaders";
 import { useContext, useEffect, useState } from "react";
 
 export default function Page() {
-  const [categories, setCategories] = useState([]);
-  const [menus, setMenus] = useState([]);
+ // const [categories, setCategories] = useState([]);
+ // const [menus, setMenus] = useState([]);
 
-  const{menuItems}=useContext(CartContext);
+  const{menuItems,categories,getCategories}=useContext(CartContext);
 
   useEffect(() => {
-    const get = async () => {
-      let response = await fetch("/api/categories");
-      response = await response.json();
-      setCategories(response);
-    //   let menusResponse = await fetch("/api/menu-items");
-    //   menusResponse = await menusResponse.json();
-    //   setMenus(menusResponse);
-    };
-    get();
+    getCategories();
   }, []);
+  
   return (
     <section className="mt-8">
       {categories.length > 0 &&
