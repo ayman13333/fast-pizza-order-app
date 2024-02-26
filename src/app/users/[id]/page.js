@@ -31,7 +31,8 @@ export default function Page() {
         postalCode:userObj.postal,
         city:userObj.city,
         country:userObj.country,
-        email:user.email
+        email:user.email,
+        admin:userObj.admin
       })
   });
   }

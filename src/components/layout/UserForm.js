@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function UserForm({ user, onSave }) {
-  const session = useSession();
+  //const session = useSession();
   const [userName, setUserName] = useState(user?.name || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [street, setStreet] = useState(user?.streeAddress || "");
@@ -12,9 +12,11 @@ export default function UserForm({ user, onSave }) {
   const [city, setCity] = useState(user?.city || "");
   const [country, setCountry] = useState(user?.country || "");
   const[email,setEmail]=useState(user?.email ||'');
+  const[admin,setAdmin]=useState(user?.admin || false);
+
 
   console.log("user in child");
-  console.log(user);
+  console.log(user?.admin);
 
   return (
     <>
@@ -48,6 +50,7 @@ export default function UserForm({ user, onSave }) {
               postal,
               city,
               country,
+              admin
             })
           }
         >
@@ -94,9 +97,21 @@ export default function UserForm({ user, onSave }) {
           <input
             type="text"
             value={country}
-            setCountry={(e) => setCountry(e.target.value)}
+            onChange={(e) => setCountry(e.target.value)}
             placeholder="country"
           />
+
+          <div>
+            <label htmlFor="isAdmin" className="p-2 inline-flex items-center gap-2">
+            <input 
+            checked={admin}
+            value={admin}
+            onChange={()=>setAdmin(prev=>!prev)}
+            type="checkbox"
+             id="isAdmin" />
+             <span>isAdmin</span> 
+              </label>
+          </div>
           <button type="submit">Save</button>
         </form>
         </div>
