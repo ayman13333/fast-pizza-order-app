@@ -9,6 +9,14 @@ export default function AppContext({children}) {
   const[menuItems,setMenuItems]=useState([]);
   const[categories,setCategories]=useState([]);
 
+  const ls=typeof window !=='undefined' ? window.localStorage :null;
+
+  function saveCartToLocalStorage(){
+    if(ls){
+      ls.setItem('cart',JSON.stringify(cartProducts));
+    }
+  }
+
   function addToCart(product,sizes=null,extras=[]){
     setCartProducts(prevProducts=>{
       const cartProduct={...product,sizes,extras};
