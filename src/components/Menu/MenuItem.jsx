@@ -22,9 +22,12 @@ export default function MenuItem(MenuItem) {
         showPoPUP&&(
           <div className="fixed inset-0 bg-black/80 flex items-center justify-center">
             <div className="bg-white p-4 rounded-lg max-w-md">
+              
             <img src="/pizza.png" className="max-h-24 mx-auto block" alt="pizza" />
+
             <h2 className="text-lg font-bold text-center mb-2">{name}</h2>
             <p className="text-gray-500 mb-2 text-center">{description}</p>
+
             {sizes?.length>0&&(
               <div className="p-2">
                 <h3 className="mb-2 text-gray-700">Pick your size:</h3>
@@ -51,7 +54,6 @@ export default function MenuItem(MenuItem) {
                     <input type="checkbox" name={extras.name} />{extras.name} ${basePrice+ extras.price}
                   </label>
                 ))
-
                 }
               </div>
               )
