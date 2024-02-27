@@ -39,6 +39,23 @@ export default function MenuItem(MenuItem) {
                 }
               </div>
             )}
+
+            {
+              extras?.length>0&&(
+                <div className="p-2">
+                <h3 className="mb-2 text-gray-700">Pick your extras:</h3>
+                {extras.map(extras=>(
+                  <label 
+                  className="block p-4 mb-2 rounded-md border text-start"
+                  key={extras}>
+                    <input type="checkbox" name={extras.name} />{extras.name} ${basePrice+ extras.price}
+                  </label>
+                ))
+
+                }
+              </div>
+              )
+            }
             </div>
           </div>
         )
