@@ -1,6 +1,6 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext=createContext({});
 
@@ -10,6 +10,12 @@ export default function AppContext({children}) {
   const[categories,setCategories]=useState([]);
 
   const ls=typeof window !=='undefined' ? window.localStorage :null;
+
+  useEffect(()=>{
+    if(ls && ls.getItem('cart')){
+      setCartProducts(JSON.parse(ls.getItem('cart')))
+    }
+  },[]);
 
   function saveCartToLocalStorage(cartProducts){
     if(ls){
@@ -23,6 +29,19 @@ export default function AppContext({children}) {
       const newProducts=[...prevProducts,cartProduct];
      saveCartToLocalStorage(newProducts);
       return newProducts;
+    });
+  }
+
+  function clearCart() {
+    setCartProducts([]);
+    saveCartToLocalStorage([]);
+  }
+
+  function removeCartProducts(indexToRemove) {
+    setCartProducts(prevCart=>{
+      const newCartProducts=prevCart.filter((v,index)=>indexToRemove !==index);
+      saveCartToLocalStorage(newCartProducts);
+      return newCartProducts;
     });
   }
 
@@ -44,7 +63,7 @@ export default function AppContext({children}) {
     <SessionProvider>
 
       <CartContext.Provider value={{
-        cartProducts,setCartProducts,addToCart,menuItems,getMenuItems,categories,getCategories
+        cartProducts,setCartProducts,addToCart,menuItems,getMenuItems,categories,getCategories,clearCart,removeCartProducts
       }}>
       {children}
       </CartContext.Provider>

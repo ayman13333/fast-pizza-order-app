@@ -1,27 +1,50 @@
-import { useContext } from "react"
+'use client';
+import { useContext, useState } from "react"
 import { CartContext } from "../AppContext"
+import MenuItemTile from "./MenuItemTile";
 
 
 export default function MenuItem(MenuItem) {
-  // console.log('MenuItem');
-  // console.log(MenuItem);
 
-  const {name,description,basePrice,sizes,extraIngredients}=MenuItem;
+  const { name, description, basePrice, sizes, extras } = MenuItem;
+  const { addToCart } = useContext(CartContext);
+  const [showPoPUP, setShowPoPUP] = useState(false);
 
-  const{ addToCart }=useContext(CartContext);
+  function handleAddToCart() {
+    // ()=>addToCart(MenuItem)
+    if (sizes.length == 0 && extras.length == 0) addToCart(MenuItem)
+    else setShowPoPUP(true);
+  }
 
   return (
-    <div className="bg-gray-200 p-4 rounded-lg text-center hover:bg-white hover:shadow-2xl hover:shadow-black/25 transition-all">
-      <div className="text-center">
-      <img src="/pizza.png" className="max-h-24 mx-auto block" alt="pizza" />
-      </div>
-        
-        <h4 className="font-semibold my-4">{name}</h4>
-        <p className="text-gray-500 truncate"> {description}</p>
-        <button 
-        onClick={()=>addToCart(MenuItem)}
-        className="bg-primary text-white rounded-full px-6 py-2 my-4"
-        >Add to cart ${basePrice}</button>
-      </div>
+    <>
+      {
+        showPoPUP&&(
+          <div className="fixed inset-0 bg-black/80 flex items-center justify-center">
+            <div className="bg-white p-4 rounded-lg max-w-md">
+            <img src="/pizza.png" className="max-h-24 mx-auto block" alt="pizza" />
+            <h2 className="text-lg font-bold text-center mb-2">{name}</h2>
+            <p className="text-gray-500 mb-2 text-center">{description}</p>
+            {sizes?.length>0&&(
+              <div className="p-2">
+                <h3 className="mb-2 text-gray-700">Pick your size:</h3>
+                {sizes.map(size=>(
+                  <label 
+                  className="block p-4 mb-2 rounded-md border text-start"
+                  key={size}>
+                    <input type="radio" name="size" />{size.name} ${basePrice+ size.price}
+                  </label>
+                ))
+
+                }
+              </div>
+            )}
+            </div>
+          </div>
+        )
+      }
+      <MenuItemTile handleAddToCart={handleAddToCart} {...MenuItem} />
+    </>
+
   )
 }
